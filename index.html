@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bildgalleri - Tenta</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="body">
+    <div class="wrapper">
+        <header>
+            <img src="https://source.unsplash.com/v9bnfMCyKbg" alt="">
+            <h1>PROJEKT: BILDGALLERI</h1>
+        </header>
+        <section>
+            <aside>
+                <input type="search" id="search"><br>
+                <h2>Preferences:</h2>
+                <p>Size: </p>
+                <ul>
+                    <dt>
+                        <input type="radio" name="size" id="size1">
+                        <label for="small">Small</label>
+                    </dt>
+                    <dt>
+                        <input type="radio" name="size" id="size2">
+                        <label for="medium">Medium</label>
+                    </dt>
+                    <dt>
+                        <input type="radio" name="size" id="size3">
+                        <label for="large">Large</label>
+                    </dt>
+                </ul>
+                <p>Pictures per page: </p>
+                <ul>
+                    <dt>
+                        <input type="radio" name="perPage" id="perPage1">
+                        <label for="small">10</label>
+                    </dt>
+                    <dt>
+                        <input type="radio" name="perPage" id="perPage2">
+                        <label for="medium">20</label>
+                    </dt>
+                    <dt>
+                        <input type="radio" name="perPage" id="perPage3">
+                        <label for="large">40</label>
+                    </dt>
+                </ul>
+                <button class="btn">Search</button>
+
+            </aside>
+            <main>
+                <section id ="WelcomeText">
+                    <h2>Welcome to the picture gallery!</h2>
+                    <p>This website is made and designed by Julia Nilsson, SUT20. The mission was to create a picture website by using API.</p>    
+                </section>
+                <section id="gallery">
+                </section>
+            </main>
+            
+        </section>
+        <nav>
+            <section id="buttonSection"></section>
+        </nav>
+    </div>
+    <section id="lightBox" class="lightBox">
+        <section class="imgHolder">
+            <img src="" alt="" id="currentImg">
+        </section>
+    </section>
+    
+</body>
+<script src="base.js"></script>
+
+</html>
