@@ -11,7 +11,6 @@ function getURL() {
     const input = document.getElementById("search").value;
     if (input == "") {
         document.getElementById("gallery").innerHTML = "<p>You have to enter a search word.</p>";
-
     }
     else {
         document.getElementById("gallery").innerHTML = "";
@@ -57,57 +56,65 @@ async function getPictures(url, page) {
     else {
         size = "";
     }
+    console.log(jsonData.photos.photo.length);
+    if (jsonData.photos.photo.length > 0) {
+        document.getElementById("gallery").innerHTML = "";
+        for (let picture of jsonData.photos.photo) {
+            let img = document.createElement("img");
+            let id = picture.id;
+            let server = picture.server;
+            let secret = picture.secret;
+            let farm = picture.farm;
 
-    for (let picture of jsonData.photos.photo) {
-        let img = document.createElement("img");
-        let id = picture.id;
-        let server = picture.server;
-        let secret = picture.secret;
-        let farm = picture.farm;
-
-        const URL_2 = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}${size}.jpg`;
-        img.setAttribute("src", URL_2);
-        img.classList.add("imgSearch");
-        img.addEventListener("click", function () {
-            const body = document.getElementById("lightBox");
-            body.classList.add("lightboxActive");
-            const imgTag = document.getElementById("currentImg");
-            imgTag.src = img.src;
-            let exitBtn = document.createElement("button");
-            exitBtn.innerText = "X";
-            document.getElementById("lightBox").append(exitBtn);
-            exitBtn.addEventListener("click", function () {
-                imgTag.src = "";
-                exitBtn.remove();
-                body.classList.remove("lightboxActive");
+            const URL_2 = `https://farm${farm}.staticflickr.com/${server}/${id}_${secret}${size}.jpg`;
+            img.setAttribute("src", URL_2);
+            img.classList.add("imgSearch");
+            img.addEventListener("click", function () {
+                const body = document.getElementById("lightBox");
+                body.classList.add("lightboxActive");
+                const imgTag = document.getElementById("currentImg");
+                imgTag.src = img.src;
+                let exitBtn = document.createElement("button");
+                exitBtn.innerText = "X";
+                document.getElementById("lightBox").append(exitBtn);
+                exitBtn.addEventListener("click", function () {
+                    imgTag.src = "";
+                    exitBtn.remove();
+                    body.classList.remove("lightboxActive");
+                });
             });
-        });
-        document.getElementById("gallery").append(img);
-    };
+            document.getElementById("gallery").append(img);
+        };
 
-    if (page != 1) {
-        var btnPast = document.createElement("button");
-        btnPast.setAttribute("id", "btn2");
-        btnPast.innerHTML = "Past Page";
-        document.getElementById("buttonSection").appendChild(btnPast);
-        btnPast.addEventListener("click", async function () {
+        if (page != 1) {
+            var btnPast = document.createElement("button");
+            btnPast.setAttribute("id", "btn2");
+            btnPast.innerHTML = "Past Page";
+            document.getElementById("buttonSection").appendChild(btnPast);
+            btnPast.addEventListener("click", async function () {
+                removeOldPage(page);
+                const url = getURL();
+                page--;
+                getPictures(url, page);
+            });
+        }
+
+        var btnNext = document.createElement("button");
+        btnNext.setAttribute("id", "btn3");
+        btnNext.innerHTML = "Next Page";
+        document.getElementById("buttonSection").appendChild(btnNext);
+        btnNext.addEventListener("click", async function () {
             removeOldPage(page);
+            page++;
             const url = getURL();
-            page--;
             getPictures(url, page);
         });
     }
+    else {
+        const input = document.getElementById("search").value;
+        document.getElementById("gallery").innerHTML = "<p>No photos of " + input + " found.</p>";
+    }
 
-    var btnNext = document.createElement("button");
-    btnNext.setAttribute("id", "btn3");
-    btnNext.innerHTML = "Next Page";
-    document.getElementById("buttonSection").appendChild(btnNext);
-    btnNext.addEventListener("click", async function () {
-        removeOldPage(page);
-        page++;
-        const url = getURL();
-        getPictures(url, page);
-    });
 };
 
 function removeOldPage(page) {
